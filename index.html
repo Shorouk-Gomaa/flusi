@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6b4eff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>فلوسي بتروح فين؟</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#faf6f1;--card:#fff;--tx:#2b2622;--mut:#8a7f76;--bd:#eadfd3;--in:#2e8b57;--out:#d2493a;--ac:#6b4eff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171412;--card:#221e1b;--tx:#f1ebe4;--mut:#a39a91;--bd:#352f2a;--in:#4fc58a;--out:#ff7a6b;--ac:#9c86ff}}
+:root[data-theme="dark"]{--bg:#171412;--card:#221e1b;--tx:#f1ebe4;--mut:#a39a91;--bd:#352f2a;--in:#4fc58a;--out:#ff7a6b;--ac:#9c86ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.5}
+.w{max-width:520px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:4px 0 2px}
+#st{color:var(--mut);font-size:.8rem;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:14px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.nav button{background:none;border:1px solid var(--bd);color:var(--tx);border-radius:10px;width:40px;height:40px;font-size:1.1rem;cursor:pointer}
+.nav b{font-size:1.1rem}
+.bal{text-align:center}
+.bal small{color:var(--mut)}
+.bal b{display:block;font-size:2.1rem;margin:2px 0 10px}
+.row{display:flex;gap:6px}
+.row>div{flex:1;text-align:center;font-size:.8rem;color:var(--mut)}
+.row b{display:block;font-size:1rem;color:var(--tx)}
+.in{color:var(--in)!important}.out{color:var(--out)!important}
+.tg{display:flex;gap:8px;margin-bottom:10px}
+.tg button{flex:1;padding:10px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--tx);font:inherit;cursor:pointer}
+.tg button.on.o{background:var(--out);color:#fff;border-color:var(--out)}
+.tg button.on.i{background:var(--in);color:#fff;border-color:var(--in)}
+input,select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;margin-bottom:8px}
+.add,.sec{width:100%;padding:12px;border:0;border-radius:10px;background:var(--ac);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.sec{background:none;border:1px solid var(--ac);color:var(--ac);margin-top:10px}
+h2{font-size:1rem;margin:0 0 10px}
+.br{margin-bottom:9px;font-size:.9rem}
+.br div{display:flex;justify-content:space-between}
+.bar{height:8px;border-radius:4px;background:var(--bd);margin-top:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--out)}
+.it,.mo{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)}
+.it:last-child,.mo:last-child{border:0}
+.it small,.mo small{color:var(--mut);display:block}
+.it button{background:none;border:0;color:var(--mut);cursor:pointer;font-size:1rem;margin-inline-start:8px}
+.mo{cursor:pointer}
+.em{color:var(--mut);text-align:center;padding:10px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>💸 فلوسي بتروح فين؟</h1>
+<div id="st">...</div>
+
+<div class="card">
+<div class="nav"><button id="nx" type="button">›</button><b id="mn"></b><button id="pv" type="button">‹</button></div>
+<div class="bal"><small>الرصيد في آخر الشهر</small><b id="bal">0</b></div>
+<div class="row"><div>أول الشهر<b id="op">0</b></div><div>دخل<b class="in" id="ti">0</b></div><div>مصروف<b class="out" id="to">0</b></div></div>
+<button class="sec" id="dl" type="button">⬇ تحميل كشف حساب الشهر</button>
+</div>
+
+<div class="card">
+<div class="tg"><button id="bo" class="on o" type="button">مصروف −</button><button id="bi" class="i" type="button">دخل +</button></div>
+<input id="amt" type="number" inputmode="decimal" placeholder="المبلغ (جنيه)">
+<select id="cat"></select>
+<input id="note" type="text" placeholder="تفاصيل (اختياري) - مثلا: غدا مع صحابي">
+<input id="dt" type="datetime-local">
+<button class="add" id="add" type="button">إضافة</button>
+</div>
+
+<div class="card"><h2>الفلوس راحت فين الشهر ده؟</h2><div id="br"></div></div>
+<div class="card"><h2>حركات الشهر</h2><div id="ls"></div></div>
+<div class="card"><h2>نسخة احتياطية</h2><button class="sec" id="ex" type="button" style="margin-top:0">⬇ تصدير كل بياناتي</button><label class="sec" style="display:block;text-align:center;cursor:pointer">⬆ استيراد نسخة احتياطية<input id="im" type="file" accept=".json" hidden></label></div>
+<div class="card"><h2>كشف الشهور (اضغطي على شهر تفتحيه)</h2><div id="ms"></div></div>
+</div>
+
+<script>
+var OUT=["أكل وشرب","مواصلات","فواتير","تسوق","كورسات","خروجات","صحة","أخرى"];
+var INN=["مرتب","شغل حر","كورسات","هدية","رصيد افتتاحي","أخرى"];
+var type="out",data=[],col=null,dls=null,migrated=false;
+var $=function(i){return document.getElementById(i)};
+var ym=new Date().toISOString().slice(0,7);
+function nowLocal(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+function fmt(n){return n.toLocaleString("ar-EG",{maximumFractionDigits:2})}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function mname(k){var p=k.split("-");return new Date(+p[0],+p[1]-1,1).toLocaleDateString("ar-EG",{month:"long",year:"numeric"})}
+function shift(k,n){var p=k.split("-"),d=new Date(+p[0],+p[1]-1+n,1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+function lget(){try{return JSON.parse(localStorage.getItem("flusi")||"[]")}catch(e){return[]}}
+function lset(){try{localStorage.setItem("flusi",JSON.stringify(data))}catch(e){}}
+function fillCats(){$("cat").innerHTML=(type==="out"?OUT:INN).map(function(c){return "<option>"+c+"</option>"}).join("")}
+function setType(t){type=t;$("bo").className="o"+(t==="out"?" on":"");$("bi").className="i"+(t==="in"?" on":"");fillCats()}
+$("bo").onclick=function(){setType("out")};
+$("bi").onclick=function(){setType("in")};
+$("pv").onclick=function(){ym=shift(ym,-1);render()};
+$("nx").onclick=function(){ym=shift(ym,1);render()};
+
+function put(x){data.push(x);lset();render()}
+$("add").onclick=function(){
+var a=parseFloat($("amt").value);
+if(!a||a<=0){$("amt").focus();return}
+var d=$("dt").value||nowLocal();
+put({id:Date.now(),t:type,a:a,c:$("cat").value,n:$("note").value.trim(),d:d});
+ym=d.slice(0,7);
+$("amt").value="";$("note").value="";$("dt").value=nowLocal()};
+function del(id){if(!confirm("تمسحي الحركة دي؟"))return;data=data.filter(function(x){return String(x.id)!==String(id)});lset();render()}
+
+function render(){
+var op=0,ti=0,to=0,cats={},mt=0,cur=[],sums={};
+data.forEach(function(x){var m=x.d.slice(0,7),s=x.t==="in"?x.a:-x.a;
+sums[m]=sums[m]||{i:0,o:0};if(x.t==="in")sums[m].i+=x.a;else sums[m].o+=x.a;
+if(m<ym)op+=s;else if(m===ym){cur.push(x);if(x.t==="in")ti+=x.a;else{to+=x.a;cats[x.c]=(cats[x.c]||0)+x.a;mt+=x.a}}});
+$("mn").textContent=mname(ym);
+$("bal").textContent=fmt(op+ti-to)+" جنيه";$("op").textContent=fmt(op);$("ti").textContent=fmt(ti);$("to").textContent=fmt(to);
+var k=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]});
+$("br").innerHTML=k.length?k.map(function(c){var p=Math.round(cats[c]/mt*100);return '<div class="br"><div><span>'+c+'</span><span>'+fmt(cats[c])+' ('+p+'%)</span></div><div class="bar"><i style="width:'+p+'%"></i></div></div>'}).join(""):'<div class="em">مفيش مصاريف في الشهر ده</div>';
+cur.sort(function(a,b){return a.d<b.d?1:-1});
+$("ls").innerHTML=cur.length?cur.map(function(x){var dd=new Date(x.d).toLocaleString("ar-EG",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+return '<div class="it"><div>'+x.c+(x.n?" - "+esc(x.n):"")+'<small>'+dd+'</small></div><div class="'+(x.t==="in"?"in":"out")+'">'+(x.t==="in"?"+":"−")+fmt(x.a)+'<button type="button" data-id="'+x.id+'">✕</button></div></div>'}).join(""):'<div class="em">ابدئي بإضافة أول حركة. يفضل تبدئي برصيدك الحالي كدخل "رصيد افتتاحي"</div>';
+var ms=Object.keys(sums).sort().reverse(),run={},tot=0;
+Object.keys(sums).sort().forEach(function(m){tot+=sums[m].i-sums[m].o;run[m]=tot});
+$("ms").innerHTML=ms.length?ms.map(function(m){return '<div class="mo" data-m="'+m+'"><div>'+mname(m)+'<small>دخل '+fmt(sums[m].i)+' | مصروف '+fmt(sums[m].o)+'</small></div><b>'+fmt(run[m])+'</b></div>'}).join(""):'<div class="em">لسه مفيش شهور</div>';
+}
+$("ls").onclick=function(e){var id=e.target.getAttribute&&e.target.getAttribute("data-id");if(id)del(id)};
+$("ms").onclick=function(e){var r=e.target.closest&&e.target.closest("[data-m]");if(r){ym=r.getAttribute("data-m");render();window.scrollTo(0,0)}};
+
+function saveFile(name,text,mime){var u=URL.createObjectURL(new Blob([text],{type:mime})),l=document.createElement("a");l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000)}
+$("dl").onclick=function(){
+var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};
+var rows=data.filter(function(x){return x.d.slice(0,7)===ym}).sort(function(a,b){return a.d<b.d?-1:1});
+saveFile("كشف-حساب-"+ym+".csv","\uFEFF"+["التاريخ","النوع","التصنيف","المبلغ","التفاصيل"].join(",")+"\n"+rows.map(function(x){return [x.d.replace("T"," "),x.t==="in"?"دخل":"مصروف",x.c,x.a,q(x.n)].join(",")}).join("\n"),"text/csv")};
+$("ex").onclick=function(){saveFile("flusi-backup-"+nowLocal().slice(0,10)+".json",JSON.stringify(data),"application/json")};
+$("im").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var j=JSON.parse(r.result);if(!Array.isArray(j))throw 0;if(confirm("ده هيستبدل البيانات الحالية بالنسخة الاحتياطية. متأكدة؟")){data=j;lset();render()}}catch(x){alert("الملف ده مش نسخة احتياطية صحيحة")}};r.readAsText(f);e.target.value=""};
+data=lget();$("st").textContent="محفوظ على الجهاز ده. خدي نسخة احتياطية من حين لآخر";
+setType("out");$("dt").value=nowLocal();render();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
+</script>
+</body>
+</html>
